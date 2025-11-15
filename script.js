@@ -7,6 +7,10 @@ const askBtn = document.querySelector("#ask");
 input.addEventListener('keyup', handleEnter);
 askBtn.addEventListener('click', handleAsk);
 
+const loading = document.createElement('div');
+loading.className = 'my-6 animate-pulse';
+loading.textContent = 'Thinking...'
+
 async function generate(text) {
 
   const msg = document.createElement("div");
@@ -15,12 +19,16 @@ async function generate(text) {
   chatContainer.appendChild(msg);
   input.value = "";
 
+  chatContainer.appendChild(loading);
+
   const assistantMessage = await callServer(text);
 
   const assisMsgEle = document.createElement("div");
   assisMsgEle.className = `my-6 bg-neutral-900 px-3 py-2 max-w-fit rounded-xl`;
   assisMsgEle.textContent = assistantMessage;
   chatContainer.appendChild(assisMsgEle);
+
+  loading.remove();
 
   console.log("assistant message: ",assistantMessage);
 }

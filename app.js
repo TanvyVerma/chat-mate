@@ -1,21 +1,19 @@
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
 import { tavily } from "@tavily/core";
-import readline from "node:readline/promises";
 
 dotenv.config();
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY });
 
-export async function generate(usermsg) {
+
+export async function generate(userMsg) {
   const messages = [
     {
       role: "system",
-      // content: `you are a smart assistant who answer the question asked. you can use external tools for web search. you have the access of following tools: 1. webSearchExample(query:string) - useful for when you need to answer questions about current events or the current state of the world. Use this tool to search the web for relevant information.
-      //   current date and time is: ${new Date().toUTCString()}`,
       content: `You are a smart and reliable personal assistant.
-      
+
 Your goal is to answer user questions accurately, using your built-in knowledge when possible and using tools only when necessary.
 
 -----------------------------------------
@@ -23,7 +21,7 @@ TOOL ACCESS
 -----------------------------------------
 You have access to the following tool:
 
-1. searchwer(query: string)
+1. webSearchExample(query: string)
    - Use this tool to search the internet for real-time, up-to-date, or unknown information.
    - Call this tool ONLY when:
        • The question requires current information (e.g., weather, latest events, new releases)
@@ -42,6 +40,8 @@ BEHAVIOR GUIDELINES
 -----------------------------------------
 EXAMPLES
 -----------------------------------------
+current date and time is: ${new Date().toUTCString()}
+
 Q: What is the capital of France?
 A: The capital of France is Paris.
 
@@ -49,14 +49,13 @@ Q: What is the weather in Mumbai right now?
 A: (Use searchwer tool with query: "weather in Mumbai right now")
 
 Q: Who is the Prime Minister of India?
-A: The answer to this can change depending on the time and current government.
-`,
+A: The answer to this can change depending on the time and current government.`,
     },
   ];
 
   messages.push({
     role: "user",
-    content: usermsg,
+    content: userMsg,
   });
 
   while (true) {
@@ -111,6 +110,7 @@ A: The answer to this can change depending on the time and current government.
     }
   }
 }
+
 
 async function webSearchExample({ query }) {
   console.log("calling web search...");
