@@ -5,8 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat Mate</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-
+     <link rel="stylesheet" href="output.css">
     <style>
         /* Hide scrollbar (Tailwind does not provide this utility) */
         .no-scrollbar::-webkit-scrollbar {
@@ -45,8 +44,8 @@
         <div class="bg-neutral-900 border-t rounded-2xl border-neutral-800 p-4 sticky">
             <div class="max-w-3xl mx-auto flex items-end space-x-3">
 
-                <textarea id="input" rows="1" placeholder="Send a message..."
-                    class="flex-1 bg-neutral-800 text-white p-2 rounded-2xl resize-none outline-none shadow-lg shadow-black/20  placeholder-neutral-500"></textarea>
+                <textarea id="input" rows="1 " placeholder="Send a message..."
+                    class="flex-1 bg-neutral-800 text-white p-4 rounded-2xl resize-none outline-none shadow-lg shadow-black/20  placeholder-neutral-500 overflow-y-auto max-h-32 w-full no-scrollbar"></textarea>
 
                 <button id="ask"
                     class="bg-white text-black font-medium py-2 px-4 rounded-full hover:bg-gray-300 transition">

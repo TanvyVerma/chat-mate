@@ -4,6 +4,7 @@ const input = document.querySelector("#input");
 const chatContainer = document.querySelector("#chatContainer");
 const askBtn = document.querySelector("#ask");
 const scrollBtn = document.querySelector("#scrollBtn");
+const textarea = document.getElementById("input");
 
 const threadId = Date.now().toString(36) + Math.random().toString(36).substring(2, 8);
 
@@ -16,6 +17,17 @@ askBtn.addEventListener('click', handleAsk);
 const loading = document.createElement('div');
 loading.className = 'my-6 animate-pulse';
 loading.textContent = 'Thinking...';
+
+
+textarea.addEventListener("input", () => {
+  textarea.style.height = "auto";
+  textarea.style.height = textarea.scrollHeight + "px";
+
+  const maxHeight = 128;
+  if(textarea.scrollHeight > maxHeight){
+    textarea.style.height = maxHeight + "px";
+  }
+});
 
 // -----------------
 // ⭐ SCROLL ARROW
