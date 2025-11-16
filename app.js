@@ -64,7 +64,16 @@ A: The answer to this can change depending on the time and current government.`,
     content: userMsg,
   });
 
+  const MAX_RETRIES = 10;
+  let count = 0;
+
   while (true) {
+    if(count > MAX_RETRIES){
+      return "I could not find the answer, please try again";
+    }
+    count++;
+
+
     const completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       temperature: 0,
