@@ -6,45 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chat Mate</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style>
+        /* Hide scrollbar (Tailwind does not provide this utility) */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 </head>
 
 <body class="bg-neutral-900 text-white">
 
     <!-- Main Chat Layout -->
-    <div class="flex flex-col h-[calc(100vh-64px)] max-w-3xl mx-auto">
+    <div class="flex flex-col h-[calc(100vh-30px)] relative max-w-3xl mx-auto pt-4">
+
+        <!-- Simple Header -->
+        <div class=" text-center text-xl pb-4 top-0 font-semibold text-neutral-300 border-b border-neutral-800">
+            Chat Mate
+        </div>
 
         <!-- Chat Messages -->
-        <div id="chatContainer"
-            class="flex-1 overflow-y-auto px-4 py-6 space-y-6 no-scrollbar h-full">
+        <div id="chatContainer" class="flex-1 overflow-y-auto px-4 py-6 space-y-6 no-scrollbar h-full">
             <!-- Messages added dynamically via JS -->
         </div>
 
-        <!-- Input Bar (ChatGPT style) -->
-        <div class="bg-neutral-900 border-t bottom-0 rounded-2xl border-neutral-800 p-4">
+        <!-- Scroll to Bottom Button -->
+        <button id="scrollBtn"
+            class="absolute bottom-28 right-4 bg-neutral-700 text-white px-4 py-2 rounded-full shadow-lg hover:bg-neutral-600 transition z-40 border border-neutral-500 hidden">
+            ↓
+        </button>
+
+        <!-- Input Bar (ChatGPT Style Fixed) -->
+        <div class="bg-neutral-900 border-t rounded-2xl border-neutral-800 p-4 sticky">
             <div class="max-w-3xl mx-auto flex items-end space-x-3">
 
-                <textarea
-                    id="input"
-                    rows="1"
-                    placeholder="Send a message..."
-                    class="flex-1 bg-neutral-800 text-white p-3 rounded-2xl resize-none outline-none shadow-lg shadow-black/20 focus:ring-1 focus:ring-neutral-600 placeholder-neutral-500"
-                ></textarea>
+                <textarea id="input" rows="1" placeholder="Send a message..."
+                    class="flex-1 bg-neutral-800 text-white p-2 rounded-2xl resize-none outline-none shadow-lg shadow-black/20  placeholder-neutral-500"></textarea>
 
                 <button id="ask"
-                    class="bg-white text-black font-medium py-2 px-6 rounded-full hover:bg-gray-300 transition">
+                    class="bg-white text-black font-medium py-2 px-4 rounded-full hover:bg-gray-300 transition">
                     Send
                 </button>
             </div>
         </div>
+
     </div>
 
     <script src="script.js"></script>
+
 </body>
 
 </html>
-
-
-
-
-
-
