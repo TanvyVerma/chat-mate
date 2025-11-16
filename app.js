@@ -1,15 +1,19 @@
 import Groq from "groq-sdk";
 import dotenv from "dotenv";
 import { tavily } from "@tavily/core";
+import NodeCache from "node-cache";
+// import { cache } from "react";
 
 dotenv.config();
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY });
 
+const cache = new NodeCache({stdTTL: 60*60*24});
 
-export async function generate(userMsg) {
-  const messages = [
+
+export async function generate(userMsg, threadId) {
+  const baseMsg = [
     {
       role: "system",
       content: `You are a smart and reliable personal assistant.
@@ -53,6 +57,8 @@ A: The answer to this can change depending on the time and current government.`,
     },
   ];
 
+  const messages = cache.get(threadId) ?? baseMsg;
+
   messages.push({
     role: "user",
     content: userMsg,
@@ -90,6 +96,8 @@ A: The answer to this can change depending on the time and current government.`,
     const toolCalls = completion.choices[0].message.tool_calls;
 
     if (!toolCalls) {
+      cache.set(threadId, messages);
+      console.log(JSON.stringify(cache.data));
       return completion.choices[0].message.content;
     }
 
