@@ -2,14 +2,13 @@ import Groq from "groq-sdk";
 import dotenv from "dotenv";
 import { tavily } from "@tavily/core";
 import NodeCache from "node-cache";
-// import { cache } from "react";
 
 dotenv.config();
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY });
 
-const cache = new NodeCache({stdTTL: 60*60*24});
+const cache = new NodeCache({stdTTL: 60*60*24}); //24 hour memory backup
 
 
 export async function generate(userMsg, threadId) {
