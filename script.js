@@ -91,7 +91,7 @@ async function generate(text) {
 // ⭐ CALLING SERVER
 // -------------------
 async function callServer(inputText) {
-    const response = await fetch(`http://localhost:3000/chat`, {
+    const response = await fetch(`/chat`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
