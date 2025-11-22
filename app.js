@@ -8,8 +8,7 @@ dotenv.config();
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY });
 
-const cache = new NodeCache({stdTTL: 60*60*24}); //24 hour memory backup
-
+const cache = new NodeCache({ stdTTL: 60 * 60 * 24 }); //24 hour memory backup
 
 export async function generate(userMsg, threadId) {
   const baseMsg = [
@@ -67,11 +66,10 @@ A: The answer to this can change depending on the time and current government.`,
   let count = 0;
 
   while (true) {
-    if(count > MAX_RETRIES){
+    if (count > MAX_RETRIES) {
       return "I could not find the answer, please try again";
     }
     count++;
-
 
     const completion = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
@@ -126,7 +124,6 @@ A: The answer to this can change depending on the time and current government.`,
     }
   }
 }
-
 
 async function webSearchExample({ query }) {
   console.log("calling web search...");
